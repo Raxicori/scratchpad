@@ -8,33 +8,22 @@ def main(argv):
     browser=webdriver.Chrome()
     cookbook="https://www.blueapron.com/cookbook"
     browser.get(cookbook)
-    time.sleep(5)
+    time.sleep(2)
     
     body=browser.find_element_by_tag_name('body')
-    body.click()
+    print "ESCAPE"
+    body.send_keys(Keys.ESCAPE)
     
-    for _ in range(3):
-        print "PAGE_DOWN"
-        #body.click()
-        for _ in range(5):
-            body.send_keys(Keys.PAGE_DOWN)
+    for _ in range(25):
         time.sleep(5)
+        print "PAGE_DOWN"
+        for _ in range(3):
+            body.send_keys(Keys.PAGE_DOWN)
         
     html_source=browser.page_source
     
-    soup=BeautifulSoup(html_source)
-    #print soup
-    
-    '''
-    header3=browser.find_elements_by_tag_name('h3')
-    for el in header3:
-        print el.text
-    header6=browser.find_elements_by_tag_name('h6')
-    for el in header6:
-        print el.text
-    '''
-    #webpage=urllib2.urlopen(cookbook)
-    #soup=BeautifulSoup(webpage)
+    soup=BeautifulSoup(html_source, "html.parser")
+
     header3=soup.find_all("h3")
     header6=soup.find_all("h6")
     i=0
